@@ -44,19 +44,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //Authenticated
         http.authorizeRequests()
                 .antMatchers( HttpMethod.GET, "/api/highscores").permitAll()
-                .antMatchers( HttpMethod.GET, "/api/highscores/*").permitAll()
-                .antMatchers( HttpMethod.GET, "/api/users").permitAll() //TODO change back to admin role
+                .antMatchers( HttpMethod.GET, "/api/highscores/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers( HttpMethod.POST, "/api/highscores" ).hasAnyRole("USER", "ADMIN")
+                .antMatchers( HttpMethod.PUT, "/api/highscores/*" ).hasAnyRole("USER", "ADMIN")
+                .antMatchers( HttpMethod.GET, "/api/users").hasAnyRole("ADMIN")
                 .antMatchers( HttpMethod.GET, "/api/users/username/*").permitAll()
-                .antMatchers( HttpMethod.GET, "/api/users/enabled").permitAll()
-                .antMatchers( HttpMethod.GET, "/api/users/disabled").permitAll()
-                .antMatchers( HttpMethod.PUT, "/api/users/enabled/*").permitAll()
-                .antMatchers( HttpMethod.PUT, "/api/users/disabled/*").permitAll()
+                .antMatchers( HttpMethod.GET, "/api/users/enabled").hasAnyRole( "ADMIN")
+                .antMatchers( HttpMethod.GET, "/api/users/disabled").hasAnyRole("ADMIN")
+                .antMatchers( HttpMethod.PUT, "/api/users/enabled/*").hasAnyRole( "ADMIN")
+                .antMatchers( HttpMethod.PUT, "/api/users/disabled/*").hasAnyRole("ADMIN")
                 .antMatchers( HttpMethod.POST, "/api/users").permitAll()
+                .antMatchers( HttpMethod.DELETE, "/api/users/*").hasAnyRole("ADMIN")
                 .antMatchers( HttpMethod.GET, "/api/games").permitAll()
                 .antMatchers( HttpMethod.POST, "/api/security/authenticate" ).permitAll()
-                .antMatchers( HttpMethod.POST, "/api/highscores" ).permitAll()
-                .antMatchers( HttpMethod.PUT, "/api/highscores/*" ).permitAll() //TODO change back to user or admin
-                .antMatchers( HttpMethod.DELETE, "/api/users/*").hasAnyRole("ADMIN")
+
                 .antMatchers( "/**" ).denyAll()
 
                 .and()
