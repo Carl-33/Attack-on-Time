@@ -50,12 +50,14 @@ function EnabledUsers() {
         userToDisable.roles = e.roles;
 
 
+        const jwt = localStorage.getItem("jwt_token");
 
         let init = {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+                "Authorization": "Bearer " + jwt
             },
             body: JSON.stringify({
                 appUserId: userToDisable.appUserId,

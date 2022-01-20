@@ -34,6 +34,7 @@ function Timer() {
 
 
     useEffect(() => {
+      
         if (localSeconds != null) {
             setSeconds(parseInt(localSeconds));
             setIsActive(true)
@@ -83,6 +84,7 @@ function Timer() {
 
     const games = ['/bookshelf', '/flashlight', '/drag', '/']
     if (userManager.currentUser) {
+        
         fetch(`http://localhost:8080/api/users/username/${userManager.currentUser.sub}`)
             .then(response => response.json())
             .then(body => setUserId(body.appUserId))
@@ -110,11 +112,16 @@ function Timer() {
                 localStorage.removeItem("timer")
             }
             const name = userManager.currentUser.sub
+
             const addHighScore = () => {
+
+                const jwt = localStorage.getItem("jwt_token");
+
                 let init = {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer " + jwt
                     },
                     body: JSON.stringify({
                         userId: userId,
