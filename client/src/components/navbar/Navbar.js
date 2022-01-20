@@ -37,7 +37,7 @@ function Navbar() {
                 <Link className="nav-link" id="signup-link" to="/signup">
                   SignUp
                 </Link>
-              </li>} 
+              </li>}
 
             <li className="nav-item">
               <Link className="nav-link" id="description-link" to="/descriptions">
@@ -49,39 +49,27 @@ function Navbar() {
                 High Scores
               </Link>
             </li>
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Games
-              </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <Link className="dropdown-item" to="/window">Bay Window</Link>
-                <Link className="dropdown-item" to="/flashlight">Flashlight</Link>
-                <Link className="dropdown-item" to="/drag">Drag Counter</Link>
-                <Link className="dropdown-item" to="/bookshelf">Bookshelf</Link>
-                <Link className="dropdown-item" to="/picture">Picture Tear</Link>
-              </div>
-              </li>
-              {userManager.currentUser && userManager.currentUser.authorities == 'ROLE_ADMIN' ?
+            {userManager.currentUser && userManager.currentUser.authorities == 'ROLE_ADMIN' ?
               <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Users
-              </a>
-              <div className='dropdown-menu' aria-labelledby="navbarDropdownMenuLink">
-                <Link className='dropdown-item' to='/enabled'>Active</Link>
-                <Link className='dropdown-item' to='/disabled'>Deactivated</Link>
-              </div>
-            </li> : <></>}
+                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Users
+                </a>
+                <div className='dropdown-menu' aria-labelledby="navbarDropdownMenuLink">
+                  <Link className='dropdown-item' to='/enabled'>Active</Link>
+                  <Link className='dropdown-item' to='/disabled'>Deactivated</Link>
+                </div>
+              </li> : <></>}
           </ul>
         </div>
         <div className='login-logout-spot navbar-right'>
-            {userManager.currentUser ?
-              <Link className='login-logout-btn' id='nav-login-button' to="/" onClick={onLogout}>
-                Logout {userManager.currentUser.sub}
-              </Link>
-              : <Link className='login-logout-btn' id='nav-logout-button' to='/Login'>
-                Login
-              </Link>}
-          </div>
+          {userManager.currentUser ?
+            <Link className='login-logout-btn' id='nav-login-button' to="/" onClick={onLogout}>
+              Logout {userManager.currentUser.sub}
+            </Link>
+            : <Link className='login-logout-btn' id='nav-logout-button' to='/Login'>
+              Login
+            </Link>}
+        </div>
       </nav>
     </>
   )
