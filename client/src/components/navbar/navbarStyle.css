@@ -4,7 +4,10 @@
     font-size: 30px;
     color:#073b4c;
     }
+#nav-image {
+    max-height: 50px;
 
+}
 .nav-link .active {
     color:#118AB2;
     margin-left: 15px;

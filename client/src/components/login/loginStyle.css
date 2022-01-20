@@ -31,7 +31,7 @@
     margin-top:5%;
     margin-bottom: 10%;
     font-size:50px;
-    letter-spacing: 10px;
+    letter-spacing: 2px;
 }
 
 .signupError, .loginError {
@@ -43,6 +43,11 @@
     background-color: #073b4c;
     height:15px;
 
+}
+
+#signup, #signupDisabled {
+    font-size: 40px;
+    padding: 10px
 }
 
 

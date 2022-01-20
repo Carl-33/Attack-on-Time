@@ -1,4 +1,4 @@
-drop database if exists attack_prod;
+drop database if exists attack_test;
 create database attack_test;
 use attack_test;
 
@@ -68,8 +68,7 @@ insert into users (user_name, password, disabled) values
 ,('call','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa',0)
 ,('pretty','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa',0);
 
-
-insert into user_roles values
+insert into user_roles (user_id, role_id) values
 (1,2)
 ,(2,2)
 ,(3,2)
@@ -79,3 +78,10 @@ insert into user_roles values
 ,(7,1)
 ,(8,1)
 ,(9,1);
+
+INSERT INTO high_scores (high_score, user_id)
+	VALUES 
+    (33, 1),
+    (37, 2),
+    (44, 3);
+    

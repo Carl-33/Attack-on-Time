@@ -40,9 +40,6 @@ create table games (
 
 
 
-select high_scores.high_score_id, high_scores.high_score, users.user_name, users.disabled
-from high_scores
-INNER JOIN users
-ON high_scores.user_id = users.user_id
-order by high_scores.high_score asc
-limit 1000;
+
+
+

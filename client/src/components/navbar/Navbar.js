@@ -2,6 +2,8 @@ import './navbarStyle.css';
 import { Link, useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 import UserContext from '../UserContext';
+import logo from './logo.png';
+import gif from '../homepage/clock.gif';
 
 function Navbar() {
 
@@ -26,6 +28,9 @@ function Navbar() {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
           <ul className="navbar-nav">
+            <li>
+              <img id='nav-image' src={ logo } />
+            </li>
             <li className="nav-item">
               <Link className={location.parseInt === "/" ? "nav-link active" : "nav-link"} id="home-link" to="/">
                 Home
