@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 @RestController
@@ -29,9 +30,9 @@ public class HighScoreController {
 
     @PostMapping
     public ResponseEntity<Object> add(@RequestBody HighScore highScore){
-//        if(checkForExistingScore(highScore.getHighScoreId())){
-//            return new ResponseEntity<>("Highscore Already Exists", HttpStatus.CONFLICT);
-//        }
+        if(checkForExistingScore(highScore.getHighScoreId())){
+            return new ResponseEntity<>("Highscore Already Exists", HttpStatus.CONFLICT);
+        }
         Result<HighScore> result = service.add(highScore);
         if(result.isSuccess()){
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
@@ -46,6 +47,11 @@ public class HighScoreController {
         }
         if (highScoreId != highScore.getHighScoreId()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+
+        if(highScore.getHighScore() > service.grabExisting(highScoreId).getHighScore())
+        {
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
         }
 
         Result<HighScore> result = service.update(highScore);

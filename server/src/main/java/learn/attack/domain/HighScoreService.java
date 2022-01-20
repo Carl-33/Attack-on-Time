@@ -47,6 +47,10 @@ public class HighScoreService {
             String msg = String.format("Highscore ID: %s, not found", highScore.getHighScoreId());
             result.addMessage(msg, ResultType.NOT_FOUND);
         }
+
+        if(!repository.checkForHigherScore()){
+            result.addMessage("Score is not better.", ResultType.INVALID);
+        }
         return result;
     }
 
@@ -86,5 +90,9 @@ public class HighScoreService {
 
     public boolean checkForExistingScore(int highScoreId){
         return (repository.checkForExistingScore(highScoreId).size() == 1);
+    }
+
+    public HighScore grabExisting(int highScoreId){
+        return (repository.checkForExistingScore(highScoreId).get(0));
     }
 }

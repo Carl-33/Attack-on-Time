@@ -35,7 +35,7 @@ function Timer() {
 
 
     useEffect(() => {
-      
+
         if (localSeconds != null) {
             setSeconds(parseInt(localSeconds));
             setIsActive(true)
@@ -85,7 +85,7 @@ function Timer() {
 
     const games = ['/bookshelf', '/flashlight', '/drag', '/']
     if (userManager.currentUser) {
-        
+
         fetch(`http://localhost:8080/api/users/username/${userManager.currentUser.sub}`)
             .then(response => response.json())
             .then(body => setUserId(body.appUserId))
@@ -115,34 +115,93 @@ function Timer() {
             const name = userManager.currentUser.sub
 
 
+            /*
+            Always Attempt Put
+            take the response body: false
+            POST
+            */
 
-            const checkExisting = () => {
+
+
+
+            // const checkExisting = () => {
+            //     const jwt = localStorage.getItem("jwt_token");
+
+            //     const init = {
+            //         headers: {
+            //             "Authorization": "Bearer " + jwt
+            //         },
+            //     };
+
+            //     return fetch(`http://localhost:8080/api/highscores/${userId}`, init)
+            //         .then(response => response.json())
+            //         .then(
+            //             body => setHasScore(body));
+            // }
+
+
+
+            // checkExisting();
+
+            // if (hasScore) {
+            //     console.log("higscore exists");
+            // } else {
+            //     console.log("higscore does not exist exist");
+
+            // }
+
+
+
+            const updateHighScore = () => {
+
                 const jwt = localStorage.getItem("jwt_token");
-        
-                const init = {
+
+                let init = {
+                    method: "PUT",
                     headers: {
+                        "Content-Type": "application/json",
                         "Authorization": "Bearer " + jwt
                     },
-                };
-        
-                return fetch(`http://localhost:8080/api/highscores/${userId}`, init)
-                    .then(response => response.json())
-                    .then(
-                        body => setHasScore(body));
+                    body: JSON.stringify({
+                        userId: userId,
+                        highScore: seconds,
+                        disabled: false,
+                        userName: name,
+                        highScoreId: userId
+                    })
+
+                }
+                console.log(init);
+                fetch(`http://localhost:8080/api/highscores/${userId}`, init)
+                    .then(response => {
+                        console.log(response)
+                        if (response.status === 204) {
+                            document.getElementById('score-msg').innerHTML = `Score of ${seconds} updated for ${name}`;
+                        }  else if( response.status === 400){
+                            document.getElementById('score-msg').innerHTML = `Score of ${seconds} updated for ${name}`;
+                            addHighScore();
+                        return response.json();}
+                        else if(response.status === 403){
+                            addHighScore();
+                        return response.json();
+                        }
+                        else{
+                            //document.getElementById('score-msg').innerHTML='Something Went Wrong!'
+                            return response.json();
+                        }
+                        return Promise.reject("Error Occured");
+                    })
+                    .then(body => {
+                        if (!body) {
+                            console.log(body);
+                            setErrors([]);
+                        } else {
+                            console.log(body);
+                            setErrors(body);
+                        }
+                    }).catch(error => console.log(error));
+
             }
-
-
-
-            checkExisting();
-
-            if(hasScore){
-                console.log("higscore exists");
-            } else{
-                console.log("higscore does not exist exist");
-
-            }
-
-
 
             const addHighScore = () => {
 
@@ -167,8 +226,8 @@ function Timer() {
                 fetch(`http://localhost:8080/api/highscores`, init)
                     .then(response => {
                         console.log(response)
-                        if(response.status === 201) {
-                            document.getElementById('score-msg').innerHTML=`Score of ${seconds} submitted for ${name}`;
+                        if (response.status === 201) {
+                            document.getElementById('score-msg').innerHTML = `Score of ${seconds} submitted for ${name}`;
                         } else {
                             //document.getElementById('score-msg').innerHTML='Something Went Wrong!'
                             return response.json();
@@ -177,15 +236,14 @@ function Timer() {
                     })
                     .then(body => {
                         if (!body) {
-                            console.log("Success");
                             setErrors([]);
                         } else {
                             setErrors(body);
                         }
                     }).catch(error => console.log(error));
-
             }
-            addHighScore();
+
+            updateHighScore();
         } else {
             // if no user login just reset the timer.
             setIsActive(false);
@@ -194,7 +252,6 @@ function Timer() {
         setIsActive(false);
         localStorage.removeItem("timer")
     }
-
 
 
     return (
