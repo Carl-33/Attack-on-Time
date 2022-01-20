@@ -20,6 +20,7 @@ function Timer() {
     const userManager = useContext(UserContext);
     const [userId, setUserId] = useState(0);
     const [errors, setErrors] = useState([]);
+    const [hasScore, setHasScore] = useState(false);
 
 
 
@@ -113,6 +114,36 @@ function Timer() {
             }
             const name = userManager.currentUser.sub
 
+
+
+            const checkExisting = () => {
+                const jwt = localStorage.getItem("jwt_token");
+        
+                const init = {
+                    headers: {
+                        "Authorization": "Bearer " + jwt
+                    },
+                };
+        
+                return fetch(`http://localhost:8080/api/highscores/${userId}`, init)
+                    .then(response => response.json())
+                    .then(
+                        body => setHasScore(body));
+            }
+
+
+
+            checkExisting();
+
+            if(hasScore){
+                console.log("higscore exists");
+            } else{
+                console.log("higscore does not exist exist");
+
+            }
+
+
+
             const addHighScore = () => {
 
                 const jwt = localStorage.getItem("jwt_token");
@@ -137,9 +168,9 @@ function Timer() {
                     .then(response => {
                         console.log(response)
                         if(response.status === 201) {
-                            document.getElementById('score-msg').innerHTML='New High Score!'
+                            document.getElementById('score-msg').innerHTML=`Score of ${seconds} submitted for ${name}`;
                         } else {
-                            document.getElementById('score-msg').innerHTML='Something Went Wrong!'
+                            //document.getElementById('score-msg').innerHTML='Something Went Wrong!'
                             return response.json();
                         }
                         return Promise.reject("Error Occured");
