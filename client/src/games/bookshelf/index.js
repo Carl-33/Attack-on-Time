@@ -8,7 +8,6 @@ function Bookshelf(userObject) {
     const bookID = Math.floor(Math.random() * 34 +1);
     const displayAlert = (bookNumber) => {
         // e.preventDefault();
-        console.log(bookNumber)
 
         if (bookNumber == bookID) {
             document.getElementById('wrong-book').hidden = true;
@@ -19,26 +18,17 @@ function Bookshelf(userObject) {
             const wrongBook = document.getElementsByClassName(`book-${bookNumber}`)
             document.getElementById('wrong-book').innerHTML = `No, not ${wrongBook[0].alt}`;
         }
-
-        // ticker.stop();
-        // alert(`You found it in ${totalTime} seconds`);
     }
 
 
     //making a random book the goal
 
     useEffect(() => {
-        console.log(bookID)
 
         const book = document.getElementsByClassName(`book-${bookID}`)
-        console.log(book)
-        console.log(book[0].alt)
-        // book[0].addEventListener("onclick", displayAlert)
-        // book[1].addEventListener("onclick", displayAlert)
-        console.log(book[0])
-        // console.log(book[0].alt)
+
         const bookName = book[0].alt
-        console.log(bookName)
+
         document.getElementById("book-name").innerHTML = bookName;
     })
 
@@ -46,20 +36,18 @@ function Bookshelf(userObject) {
 
     return (
         <div className='bookshelf-game'>
-            <h1 id="game-instructions">I want to read <span id='book-name'>The Great Gatsby</span></h1>
+            <h1 id="game-instructions">I want to read <span id='book-name'></span></h1>
             <h3 id="wrong-book"></h3>
             <div hidden id='next-box'>
                 <Timer userObject={userObject}/>
             </div>
 
-            {/* <a hidden className='col-md-2 btn' id='next-button' href="/flashlight" type='submit' >NEXT</a> */}
-
             <br />
-            {/* <h2 id="timerBox"></h2> */}
+
             <div className='bookshelf-body'>
                 <ul>
                     <li><img className="book-10" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/book10.jpg" alt="Magicians Impossible" onClick={() => displayAlert(10)} /></li>
-                    <li><img className="book-2" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/book02.jpg" alt="Gone Girl" onClick={() => displayAlert(2)} /></li>
+                    <li><img className="book-2" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/book02.jpg" alt="The Gone World" onClick={() => displayAlert(2)} /></li>
                     <li><img className="book-3" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/book03.jpg" alt="Point of Control" onClick={() => displayAlert(3)} /></li>
                     <li><img className="book-4" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/book04.jpg" alt="Black Dog" onClick={() => displayAlert(4)} /></li>
                     <li><img className="book-5" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/book05.jpg" alt="Juniper Unraveling" onClick={() => displayAlert(5)} /></li>
@@ -93,7 +81,7 @@ function Bookshelf(userObject) {
                     <li><img className="book-33" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/book33.jpg" alt="The Elephant Vanishes" onClick={() => displayAlert(33)} /></li>
                     <li><img className="book-34" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/book34.jpg" alt="The Catastrophist" onClick={() => displayAlert(34)} /></li>
                     <li><img className="book-10" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/book10.jpg" alt="The Nowhere Girls" onClick={() => displayAlert(10)} /></li>
-                    <li><img className="book-2" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/book02.jpg" alt="Gone Girl" onClick={() => displayAlert(2)} /></li>
+                    <li><img className="book-2" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/book02.jpg" alt="The Gone World" onClick={() => displayAlert(2)} /></li>
                     <li><img className="book-3" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/book03.jpg" alt="Point of Control" onClick={() => displayAlert(3)} /></li>
                     <li><img className="book-4" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/book04.jpg" alt="Black Dog" onClick={() => displayAlert(4)} /></li>
                     <li><img className="book-5" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/881020/book05.jpg" alt="Juniper Unraveling" onClick={() => displayAlert(5)} /></li>
