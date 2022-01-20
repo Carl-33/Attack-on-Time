@@ -58,11 +58,10 @@ public class HighScoreJdbcTemplateRepository implements HighScoreRepository{
     public boolean update(HighScore highscore) {
 
         final String sql = "update high_scores set "
-                + "high_score = ?, "
-                + "user_id = ? "
+                + "high_score = ? "
                 + "where high_score_id = ?";
 
-        return jdbcTemplate.update(sql, highscore.getHighScore(), highscore.getUserId(), highscore.getHighScoreId())>0;
+        return jdbcTemplate.update(sql, highscore.getHighScore(), highscore.getHighScoreId())>0;
     }
 
     @Override
@@ -81,5 +80,15 @@ public class HighScoreJdbcTemplateRepository implements HighScoreRepository{
                 " where users.user_id = ?\n";
         return jdbcTemplate.query(sql, new HighScoreMapper(), id);
 
+    }
+
+    @Override
+    public boolean checkForHigherScore() {
+        final String sql = "update high_scores set "
+                + "high_score = ?, "
+                + "user_id = ? "
+                + "where high_score_id = ?";
+
+        return false;
     }
 }

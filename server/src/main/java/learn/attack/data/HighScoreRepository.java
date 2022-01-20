@@ -11,4 +11,5 @@ public interface HighScoreRepository {
     boolean update(HighScore highscore);
     boolean deleteById(int highScoreId);
     List<HighScore> checkForExistingScore(int id);
+    boolean checkForHigherScore();
 }
