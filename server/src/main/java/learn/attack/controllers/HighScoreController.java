@@ -29,9 +29,9 @@ public class HighScoreController {
 
     @PostMapping
     public ResponseEntity<Object> add(@RequestBody HighScore highScore){
-        if(checkForExistingScore(highScore.getHighScoreId())){
-            return new ResponseEntity<>("Highscore Already Exists", HttpStatus.CONFLICT);
-        }
+//        if(checkForExistingScore(highScore.getHighScoreId())){
+//            return new ResponseEntity<>("Highscore Already Exists", HttpStatus.CONFLICT);
+//        }
         Result<HighScore> result = service.add(highScore);
         if(result.isSuccess()){
             return new ResponseEntity<>(result.getPayload(), HttpStatus.CREATED);
