@@ -13,7 +13,7 @@ function Homepage(userObject) {
         <div className="home">
             <Navbar userObject={userObject} />
             <div id='header-box'>
-                <h1 id="main-header">Attack on Time</h1>
+                <h1 id="main-header">Attack On Time</h1>
             </div>
             <h2  ></h2>
 
