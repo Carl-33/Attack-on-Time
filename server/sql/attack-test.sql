@@ -47,7 +47,21 @@ ON high_scores.user_id = users.user_id
 order by high_scores.high_score asc
 limit 1000;
 
-
+delimiter //
+create procedure set_known_good_state()
+begin
+	
+    delete from games;
+    alter table games auto_increment = 1;
+    delete from users;
+    alter table users auto_increment = 1;
+    delete from roles;
+    alter table roles auto_increment = 1;
+    delete from user_roles;
+    delete from high_scores;
+    alter table high_scores auto_increment = 1;
+    
+    
 insert into games
 	(game_name, game_description)
 values
@@ -85,3 +99,5 @@ INSERT INTO high_scores (high_score, user_id)
     (37, 2),
     (44, 3);
     
+end //
+delimiter ;
